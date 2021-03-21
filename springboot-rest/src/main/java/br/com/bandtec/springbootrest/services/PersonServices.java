@@ -1,7 +1,9 @@
 package br.com.bandtec.springbootrest.services;
 
-import br.com.bandtec.springbootrest.exception.ResourceNotFoundException;
+import br.com.bandtec.springbootrest.converter.DozerConverter;
 import br.com.bandtec.springbootrest.data.model.Person;
+import br.com.bandtec.springbootrest.exception.ResourceNotFoundException;
+import br.com.bandtec.springbootrest.data.vo.PersonVO;
 import br.com.bandtec.springbootrest.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,28 +16,34 @@ public class PersonServices {
 	@Autowired
 	PersonRepository repository;
 		
-	public Person create(Person person) {
-		return repository.save(person);
+	public PersonVO create(PersonVO person) {
+		Person entity = DozerConverter.parseObject(person, Person.class);
+		PersonVO vo = DozerConverter.parseObject(repository.save(entity), PersonVO.class);
+		return vo;
 	}
 	
-	public List<Person> findAll() {
-		return repository.findAll();
+	public List<PersonVO> findAll() {
+		return DozerConverter.parseListObjects(repository.findAll(), PersonVO.class);
 	}	
 	
-	public Person findById(Long id) {
+	public PersonVO findById(Long id) {
 
-		return repository.findById(id)
+		Person entity = repository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
+
+		return DozerConverter.parseObject(entity, PersonVO.class);
 	}
 		
-	public Person update(Person person) {
+	public PersonVO update(PersonVO person) {
 		Person entity = repository.findById(person.getId()).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
 		
 		entity.setFirstName(person.getFirstName());
 		entity.setLastName(person.getLastName());
 		entity.setAddress(person.getAddress());
 		entity.setGender(person.getGender());
-		return repository.save(entity);
+
+		PersonVO vo = DozerConverter.parseObject(repository.save(entity), PersonVO.class);
+		return vo;
 	}	
 	
 	public void delete(Long id) {
