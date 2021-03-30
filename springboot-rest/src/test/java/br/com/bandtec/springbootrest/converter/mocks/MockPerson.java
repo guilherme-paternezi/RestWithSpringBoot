@@ -1,7 +1,7 @@
 package br.com.bandtec.springbootrest.converter.mocks;
 
 import br.com.bandtec.springbootrest.data.model.Person;
-import br.com.bandtec.springbootrest.data.vo.PersonVO;
+import br.com.bandtec.springbootrest.data.vo.v1.PersonVO;
 
 import java.util.ArrayList;
 import java.util.List;
