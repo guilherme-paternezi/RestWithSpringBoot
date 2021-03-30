@@ -1,4 +1,4 @@
-package br.com.bandtec.springbootrest.data.vo;
+package br.com.bandtec.springbootrest.data.vo.v1;
 
 import java.io.Serializable;
 import java.util.Objects;
