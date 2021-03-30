@@ -2,7 +2,7 @@ package br.com.bandtec.springbootrest.converter;
 
 import br.com.bandtec.springbootrest.converter.mocks.MockPerson;
 import br.com.bandtec.springbootrest.data.model.Person;
-import br.com.bandtec.springbootrest.data.vo.PersonVO;
+import br.com.bandtec.springbootrest.data.vo.v1.PersonVO;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
